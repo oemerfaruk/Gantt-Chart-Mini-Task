@@ -1,6 +1,6 @@
 # Gantt Chart Mini Task
 
-Backend and database are working correctly for the given task. Frontend will be completed.
+Backend and database are working correctly for the given task. Frontend needs improvement but it works.
 
 ![https://quire.io/blog/images/2021-04-07-why-timeline/complicated.gif](https://quire.io/blog/images/2021-04-07-why-timeline/complicated.gif)
 
@@ -74,4 +74,21 @@ npm install -D nodemon
   "devDependencies": {
     "nodemon": "^3.1.9"
   }
+```
+
+## Frontend
+Technologies: REACT + Vite
+Gantt Chart Library: wx-react-gantt
+
+```json
+"dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "wx-react-gantt": "^1.3.1"
+}
+```
+
+for start on development.
+```bash
+npm run dev
 ```
