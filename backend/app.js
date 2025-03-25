@@ -17,10 +17,27 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
+
+// app.get('/api/schedules', (req, res) => {
+//   const query = `
+//     SELECT 
+//       s.start_time, 
+//       s.end_time, 
+//       m.name AS machine_name, 
+//       wo.order_number, 
+//       wo.customer 
+//     FROM schedules s
+//     JOIN machines m ON s.machine_id = m.id
+//     JOIN work_orders wo ON s.work_order_id = wo.id
+//   `;
+//   db.query(query, (err, results) => res.json(err || results));
+// });
+
 // API Endpointler
 app.get('/api/schedules', (req, res) => {
   const query = `
     SELECT 
+      s.id,
       s.start_time, 
       s.end_time, 
       m.name AS machine_name, 
@@ -30,7 +47,20 @@ app.get('/api/schedules', (req, res) => {
     JOIN machines m ON s.machine_id = m.id
     JOIN work_orders wo ON s.work_order_id = wo.id
   `;
-  db.query(query, (err, results) => res.json(err || results));
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Database query error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    const processedResults = results.map((row, index) => ({
+      id: row.id || `generated-${index}-${Date.now()}`, 
+      ...row
+    }));
+
+    res.json(processedResults);
+  });
 });
 
 app.get('/api/search/:orderNumber', (req, res) => {
