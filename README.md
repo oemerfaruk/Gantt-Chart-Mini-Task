@@ -78,6 +78,7 @@ npm install -D nodemon
 
 ## Frontend
 Technologies: REACT + Vite
+
 Gantt Chart Library: wx-react-gantt
 
 ```json
